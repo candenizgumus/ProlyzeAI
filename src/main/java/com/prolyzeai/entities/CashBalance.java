@@ -17,17 +17,12 @@ import java.time.LocalDate;
 @Data
 @Entity
 @Table(name = "cash_flows")
-public class CashFlow extends BaseEntity
+public class CashBalance extends BaseEntity
 {
 
     @ManyToOne
-    Category category;
-    LocalDate date;
-    String description;
-    Double amount;
-    @Enumerated(EnumType.STRING)
-    ECashFlowType cashFlowType;
-
+    Manager manager;
+    Double totalBalance;
 
 
 

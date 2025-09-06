@@ -1,8 +1,6 @@
 package com.prolyzeai.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -24,10 +22,19 @@ public class Item extends BaseEntity
     @ManyToOne
     Project project;
     String description;
-    Double amount;
+    Double unitPrice;
+    Integer quantity;
+    Double totalPrice;
 
 
-
-
-
+    //Her update olduğunda otomatik totalPrice hesaplar.
+    @PrePersist
+    @PreUpdate
+    private void calculateTotalPrice() {
+        if (unitPrice != null && quantity != null) {
+            totalPrice = unitPrice * quantity;
+        } else {
+            totalPrice = 0.0;
+        }
+    }
 }

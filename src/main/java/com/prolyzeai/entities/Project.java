@@ -3,10 +3,7 @@ package com.prolyzeai.entities;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
@@ -25,8 +22,11 @@ public class Project extends BaseEntity
     Manager manager;
     String name;
     String description;
+    Double agreedPrice;
     LocalDate startDate;
     LocalDate endDate;
+    @Builder.Default
+    Boolean isCompleted = false;
 
 
 
