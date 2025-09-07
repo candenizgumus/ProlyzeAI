@@ -12,3 +12,8 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
+
+
+prolyze:
+  issuer: ${PROLYZE_ISSUER}
+  secret-key: ${PROLYZE_SECRET_KEY}

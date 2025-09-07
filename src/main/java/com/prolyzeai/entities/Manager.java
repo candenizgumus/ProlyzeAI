@@ -23,6 +23,7 @@ public class Manager extends BaseEntity
     String name;
     String surname;
     String companyName;
+    String phoneNumber;
     @Enumerated(EnumType.STRING)
     ECurrency currency;
 

@@ -8,8 +8,14 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder
@@ -18,7 +24,7 @@ import java.time.LocalDate;
 @Data
 @Entity
 @Table(name = "auths")
-public class Auth extends BaseEntity
+public class Auth extends BaseEntity implements UserDetails
 {
 
     String email;
@@ -31,5 +37,16 @@ public class Auth extends BaseEntity
     @Enumerated(EnumType.STRING)
     EUserType userType;
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(userType.name()));
+        return authorities;
+    }
 
+    @Override
+    public String getUsername()
+    {
+        return email;
+    }
 }
