@@ -12,8 +12,18 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
-
-
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: prolyzeai@gmail.com
+    password: ${PROLYZE_MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
 prolyze:
   issuer: ${PROLYZE_ISSUER}
   secret-key: ${PROLYZE_SECRET_KEY}

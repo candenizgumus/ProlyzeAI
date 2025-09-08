@@ -14,8 +14,10 @@ public class Endpoints
 
     //controllers
     public static final String ADMIN = "/admin";
+    public static final String CATEGORY = "/category";
     public static final String VIDEO = "/video";
     public static final String COMPANY = "/company";
+    public static final String MANAGER = "/manager";
     public static final String USER = "/user";
     public static final String S3 = "/s3";
     public static final String CLINIC = "/clinic";

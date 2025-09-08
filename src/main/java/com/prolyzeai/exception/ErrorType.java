@@ -40,6 +40,8 @@ public enum ErrorType
     WRONG_PASSWORD(2009, "Hatalı şifre", HttpStatus.BAD_REQUEST),
     SUBSCRIPTION_EXPIRED(2010, "Abonelik süreniz doldu. Lütfen destek ekibiyle iletişime geçin", HttpStatus.BAD_REQUEST),
     INVALID_PHONE_NUMBER_FORMAT(2011, "Geçersiz telefon numarası formatı", HttpStatus.BAD_REQUEST),
+    MANAGER_NOT_FOUND(2012, "Kullanıcı bulunamadı", HttpStatus.BAD_REQUEST),
+    CATEGORY_NOT_FOUND(2013, "Kategori bulunamadı.", HttpStatus.BAD_REQUEST),
 
     // 3000s - Email / Notifications Errors
     MAIL_SEND_FAIL(3000, "E-posta gönderilemedi", HttpStatus.INTERNAL_SERVER_ERROR),
