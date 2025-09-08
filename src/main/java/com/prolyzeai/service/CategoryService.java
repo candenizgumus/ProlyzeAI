@@ -6,6 +6,7 @@ import com.prolyzeai.dto.request.CategoryUpdateRequestDto;
 import com.prolyzeai.dto.request.PageRequestDto;
 import com.prolyzeai.entities.Auth;
 import com.prolyzeai.entities.Category;
+import com.prolyzeai.entities.Company;
 import com.prolyzeai.entities.Manager;
 import com.prolyzeai.entities.enums.EStatus;
 import com.prolyzeai.exception.ErrorType;
@@ -38,6 +39,14 @@ public class CategoryService
         return categoryRepository.save(Category.builder()
                 .name(dto.name())
                 .company(manager.getCompany())
+                .build());
+    }
+
+    public Category saveForDemoData(String name, Company company)
+    {
+        return categoryRepository.save(Category.builder()
+                .name(name)
+                .company(company)
                 .build());
     }
 

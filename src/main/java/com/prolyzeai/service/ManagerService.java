@@ -1,10 +1,7 @@
 package com.prolyzeai.service;
 
 
-import com.prolyzeai.dto.request.AuthSaveRequestDto;
-import com.prolyzeai.dto.request.CompanySaveRequestDto;
-import com.prolyzeai.dto.request.ManagerSaveRequestDto;
-import com.prolyzeai.dto.request.ManagerUpdateRequestDto;
+import com.prolyzeai.dto.request.*;
 import com.prolyzeai.entities.Auth;
 import com.prolyzeai.entities.Company;
 import com.prolyzeai.entities.Manager;
@@ -37,6 +34,7 @@ public class ManagerService
     private final EmailService emailService;
     private final AuthService authService;
     private final CompanyService companyService;
+    private final CategoryService categoryService;
 
     @Transactional
     public Manager save(ManagerSaveRequestDto dto) {
@@ -48,6 +46,10 @@ public class ManagerService
 
         //Company Olusturma. Şimdilik default "TRY" ile oluşturuyor.
         Company company = companyService.save(new CompanySaveRequestDto(dto.companyName(), dto.city(), dto.address(), ECurrency.TRY));
+
+        //Herkesin kullanacağı kategorileri oluşturma
+        saveDemoCategoriesForCompany(company);
+
 
         //Manager oluşturma
         Manager manager = managerRepository.save(Manager.builder()
@@ -63,6 +65,17 @@ public class ManagerService
         emailService.sendManagerInvitationEmail(dto.email(), dto.name(), dto.companyName(), password);
 
         return manager;
+    }
+
+    private void saveDemoCategoriesForCompany(Company company)
+    {
+        categoryService.saveForDemoData("İşçilik", company);
+        categoryService.saveForDemoData("Malzeme", company);
+        categoryService.saveForDemoData("Yakıt", company);
+        categoryService.saveForDemoData("Ulaşım", company);
+        categoryService.saveForDemoData("Cari", company);
+        categoryService.saveForDemoData("Personel", company);
+        categoryService.saveForDemoData("Bakım", company);
     }
 
     public Boolean delete(String id){
