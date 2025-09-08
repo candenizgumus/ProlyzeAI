@@ -34,9 +34,9 @@ public class AdminController
 
     @DeleteMapping(DELETE)
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    public ResponseEntity<Boolean> delete(String uuid){
+    public ResponseEntity<Boolean> delete(String id){
 
-        return ResponseEntity.ok(adminService.delete(uuid));
+        return ResponseEntity.ok(adminService.delete(id));
     }
 
     @PutMapping(UPDATE)

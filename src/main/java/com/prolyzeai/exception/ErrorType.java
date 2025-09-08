@@ -51,6 +51,7 @@ public enum ErrorType
     LOGO_NOT_FOUND(4001, "Logo Not Found", HttpStatus.BAD_REQUEST),
     MONTHLY_PATIENT_LIMIT_EXCEEDED(4002, "Monthly Patient Limit Exceeded. Please Get In Touch With Support", HttpStatus.BAD_REQUEST),
     STAFF_LIMIT_REACHED(4003, "Staff Limit Reached. Please Get In Touch With Support", HttpStatus.BAD_REQUEST),
+    COMPANY_NOT_FOUND(4004, "Şirket bulunamadı", HttpStatus.BAD_REQUEST),
 
     // 5000s - Patient / Appointment Errors
     PATIENT_NOT_FOUND(5001, "Patient Not Found", HttpStatus.BAD_REQUEST),

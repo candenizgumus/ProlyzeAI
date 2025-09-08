@@ -22,7 +22,7 @@ public class Category extends BaseEntity
 {
 
     @ManyToOne
-    Manager manager;
+    Company company;
     String name;
 
 
