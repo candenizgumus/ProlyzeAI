@@ -1,6 +1,8 @@
 package com.prolyzeai.controller;
 
 
+import com.prolyzeai.dto.request.AuthLoginRequestDto;
+import com.prolyzeai.dto.response.AuthLoginResponseDto;
 import com.prolyzeai.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,19 +21,11 @@ public class AuthController
     private final AuthService authService;
 
 
-    /*@PostMapping(LOGIN)
-    public ResponseEntity<AuthResponseDto> login(@RequestBody LoginRequestDto dto) {
-        AuthResponseDto authResponseDto = authService.login(dto);
-        return ResponseEntity.ok(authResponseDto);
+    @PostMapping(LOGIN)
+    public ResponseEntity<AuthLoginResponseDto> login(@RequestBody AuthLoginRequestDto dto)
+    {
+        return ResponseEntity.ok(authService.login(dto));
     }
-
-
-    @PostMapping(LOGOUT)
-    @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER','PATIENT')")
-    public ResponseEntity<Boolean> logout() {
-
-        return ResponseEntity.ok(authService.logout());
-    }*/
 
 
 

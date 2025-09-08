@@ -25,7 +25,7 @@ public class DemoDataGenerator
 
         if (!authService.existsByEmail("prolyzeai@gmail.com"))
         {
-            adminService.save(new AdminSaveRequestDto("Admin", "Admin", "prolyzeai@gmail.com", "1234"));
+            adminService.save(new AdminSaveRequestDto("Admin", "Admin", "prolyzeai@gmail.com", "9L4l4A\\/ugQT"));
         }
 
     }
