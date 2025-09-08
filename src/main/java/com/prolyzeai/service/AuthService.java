@@ -34,11 +34,16 @@ public class AuthService
                 .builder()
                 .email(dto.email())
                 .password(PasswordEncoder.bCryptPasswordEncoder().encode(dto.password()))
+                .userType(dto.userType())
                 .build());
     }
 
     public Auth findById(UUID id) {
         return authRepository.findById(id).orElseThrow(() -> new ProlyzeException(ErrorType.AUTH_NOT_FOUND));
+    }
+
+    public Boolean existsByEmail(String email) {
+        return authRepository.existsByEmail(email);
     }
 
 

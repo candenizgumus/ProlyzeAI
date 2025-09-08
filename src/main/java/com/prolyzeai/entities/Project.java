@@ -27,6 +27,8 @@ public class Project extends BaseEntity
     LocalDate endDate;
     @Builder.Default
     Boolean isCompleted = false;
+    @Builder.Default
+    Boolean isProjectAnalyzedByAi = false;
 
 
 

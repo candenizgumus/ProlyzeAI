@@ -1,5 +1,7 @@
 package com.prolyzeai.dto.request;
 
-public record AuthSaveRequestDto(String email, String password)
+import com.prolyzeai.entities.enums.EUserType;
+
+public record AuthSaveRequestDto(String email, String password, EUserType userType)
 {
 }
