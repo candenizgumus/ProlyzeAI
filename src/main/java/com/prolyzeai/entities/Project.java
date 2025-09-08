@@ -19,7 +19,7 @@ public class Project extends BaseEntity
 {
 
     @ManyToOne
-    Manager manager;
+    Company company;
     String name;
     String description;
     Double agreedPrice;

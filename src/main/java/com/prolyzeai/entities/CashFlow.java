@@ -28,8 +28,4 @@ public class CashFlow extends BaseEntity
     @Enumerated(EnumType.STRING)
     ECashFlowType cashFlowType;
 
-
-
-
-
 }

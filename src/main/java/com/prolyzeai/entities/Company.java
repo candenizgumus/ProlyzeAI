@@ -14,18 +14,15 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "managers")
-public class Manager extends BaseEntity
+@Table(name = "companies")
+public class Company extends BaseEntity
 {
 
-    @ManyToOne
-    Auth auth;
-    @ManyToOne
-    Company company;
     String name;
-    String surname;
-    String phoneNumber;
-
+    String city;
+    String address;
+    @Enumerated(EnumType.STRING)
+    ECurrency selectedCurrency;
 
 
 
