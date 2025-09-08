@@ -1,8 +1,10 @@
 package com.prolyzeai.service;
 
 
+import com.prolyzeai.dto.request.CompanySaveRequestDto;
 import com.prolyzeai.dto.request.CompanyUpdateRequestDto;
 import com.prolyzeai.entities.Company;
+import com.prolyzeai.entities.enums.EStatus;
 import com.prolyzeai.exception.ErrorType;
 import com.prolyzeai.exception.ProlyzeException;
 import com.prolyzeai.repository.CategoryRepository;
@@ -21,6 +23,15 @@ public class CompanyService
     private final CompanyRepository categoryRepository;
 
 
+    public Company save(CompanySaveRequestDto dto)
+    {
+        return Company.builder()
+                .name(dto.name())
+                .city(dto.city())
+                .address(dto.address())
+                .selectedCurrency(dto.currency())
+                .build();
+    }
     public Company update(CompanyUpdateRequestDto dto)
     {
         Company company = categoryRepository.findById(UUID.fromString(dto.id())).orElseThrow(() -> new ProlyzeException(ErrorType.COMPANY_NOT_FOUND));
@@ -29,6 +40,14 @@ public class CompanyService
         company.setAddress(dto.address());
         company.setSelectedCurrency(dto.currency());
         return company;
+    }
+
+    public Boolean delete(String id)
+    {
+        Company company = categoryRepository.findById(UUID.fromString(id)).orElseThrow(() -> new ProlyzeException(ErrorType.COMPANY_NOT_FOUND));
+        company.setStatus(EStatus.DELETED);
+        categoryRepository.save(company);
+        return true;
     }
 
     public CompanyResponseView findViewById(String id)
