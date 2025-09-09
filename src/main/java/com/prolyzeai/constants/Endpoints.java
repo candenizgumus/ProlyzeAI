@@ -16,6 +16,7 @@ public class Endpoints
     public static final String ADMIN = "/admin";
     public static final String ITEM = "/item";
     public static final String CATEGORY = "/category";
+    public static final String PROJECT = "/project";
     public static final String VIDEO = "/video";
     public static final String COMPANY = "/company";
     public static final String MANAGER = "/manager";
