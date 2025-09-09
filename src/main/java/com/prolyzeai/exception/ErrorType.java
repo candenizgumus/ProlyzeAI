@@ -42,6 +42,7 @@ public enum ErrorType
     INVALID_PHONE_NUMBER_FORMAT(2011, "Geçersiz telefon numarası formatı", HttpStatus.BAD_REQUEST),
     MANAGER_NOT_FOUND(2012, "Kullanıcı bulunamadı", HttpStatus.BAD_REQUEST),
     CATEGORY_NOT_FOUND(2013, "Kategori bulunamadı.", HttpStatus.BAD_REQUEST),
+    CASH_FLOW_NOT_FOUND(2014, "İlgili para akışı bulunamadı", HttpStatus.BAD_REQUEST),
 
     // 3000s - Email / Notifications Errors
     MAIL_SEND_FAIL(3000, "E-posta gönderilemedi", HttpStatus.INTERNAL_SERVER_ERROR),

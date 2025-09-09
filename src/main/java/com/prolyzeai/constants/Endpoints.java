@@ -31,6 +31,7 @@ public class Endpoints
     public static final String CLINIC_MANAGER = "/clinic-manager";
     public static final String PATIENT = "/patient";
     public static final String PATIENT_APPOINTMENT = "/patient-appointment";
+    public static final String CASH_FLOW = "/cash-flow";
     public static final String OPERATION_PACKAGE_CATEGORY = "/operation-package-category";
     public static final String POST_OP_REVIEW = "/post-op-review";
 
@@ -52,6 +53,7 @@ public class Endpoints
     public static final String POPULATE_REVIEW_DATES = "/populate-review-dates";
 
     public static final String FIND_BY_ID = "/find-by-id";
+    public static final String GET_ALL_INCOME_AND_EXPENSE = "/get-all-income-and-expense";
     public static final String FIND_BY_TOKEN = "/find-by-token";
     public static final String SWITCH_WHITELABEL = "/switch-whitelabel";
     public static final String FIND_TOP_5_BY_FLEXIBLE_NAME_SEARCH = "/find-top-5-by-flexible-name-search";

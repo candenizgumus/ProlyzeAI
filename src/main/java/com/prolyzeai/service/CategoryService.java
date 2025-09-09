@@ -15,6 +15,8 @@ import com.prolyzeai.repository.CategoryRepository;
 import com.prolyzeai.repository.View.CategoryResponseView;
 import com.prolyzeai.utils.SessionManager;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +29,8 @@ import java.util.UUID;
 public class CategoryService
 {
     private final CategoryRepository categoryRepository;
-    private final ManagerService managerService;
+    @Lazy @Autowired
+    private ManagerService managerService;
 
 
     public Category save(CategorySaveRequestDto dto)
@@ -80,6 +83,12 @@ public class CategoryService
     public CategoryResponseView findViewById(String id)
     {
         return  categoryRepository.findViewById(UUID.fromString(id)).orElseThrow(() -> new ProlyzeException(ErrorType.CATEGORY_NOT_FOUND));
+
+    }
+
+    public Category findById(String id)
+    {
+        return  categoryRepository.findById(UUID.fromString(id)).orElseThrow(() -> new ProlyzeException(ErrorType.CATEGORY_NOT_FOUND));
 
     }
 }

@@ -111,7 +111,7 @@ public class ManagerService
     }
 
     public Manager findByAuth(Auth auth) {
-        return managerRepository.findByAuth(auth).orElseThrow(() -> new ProlyzeException(ErrorType.USER_NOT_FOUND));
+        return managerRepository.findByAuth(auth).orElseThrow(() -> new ProlyzeException(ErrorType.MANAGER_NOT_FOUND));
     }
 
     public ManagerResponseView findViewById(String id)
