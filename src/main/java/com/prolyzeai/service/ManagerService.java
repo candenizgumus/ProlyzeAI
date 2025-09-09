@@ -71,6 +71,7 @@ public class ManagerService
         return manager;
     }
 
+    @Transactional
     public Boolean createAccount(ManagerCreateAccountRequestDto dto)
     {
         //Telefon numarası formatını kontrol ediyoruz.
