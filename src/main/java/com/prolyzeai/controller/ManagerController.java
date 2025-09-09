@@ -2,6 +2,7 @@ package com.prolyzeai.controller;
 
 
 import com.prolyzeai.dto.request.*;
+import com.prolyzeai.entities.Manager;
 import com.prolyzeai.repository.View.AdminResponseView;
 import com.prolyzeai.repository.View.ManagerResponseView;
 import com.prolyzeai.service.ManagerService;
@@ -28,6 +29,13 @@ public class ManagerController
     public ResponseEntity<Boolean> save(@RequestBody ManagerSaveRequestDto dto){
 
         managerService.save(dto);
+        return ResponseEntity.ok(true);
+    }
+
+    @PostMapping(CREATE_ACCOUNT)
+    public ResponseEntity<Boolean> createAccount(@RequestBody ManagerCreateAccountRequestDto dto){
+
+        managerService.createAccount(dto);
         return ResponseEntity.ok(true);
     }
 

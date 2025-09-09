@@ -42,6 +42,7 @@ public class Endpoints
     public static final String UPDATE = "/update";
     public static final String FIND_ALL = "/find-all";
     public static final String SAVE_BY_MANAGER = "/save-by-manager";
+    public static final String CREATE_ACCOUNT = "/create-account";
     public static final String SAVE_BY_PATIENT = "/save-by-patient";
     public static final String SAVE_FIREBASE_TOKEN_TO_CLINIC = "/save-firebase-token-to-clinic";
     public static final String SAVE_FIREBASE_TOKEN_TO_PATIENT = "/save-firebase-token-to-patient";

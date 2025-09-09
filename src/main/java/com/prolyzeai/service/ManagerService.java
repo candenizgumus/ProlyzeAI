@@ -16,6 +16,7 @@ import com.prolyzeai.repository.View.AdminResponseView;
 import com.prolyzeai.repository.View.ManagerResponseView;
 import com.prolyzeai.utils.EmailService;
 import com.prolyzeai.utils.LoginCodeGenerator;
+import com.prolyzeai.utils.UtilMethods;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,9 @@ public class ManagerService
 
     @Transactional
     public Manager save(ManagerSaveRequestDto dto) {
+
+        //Telefon numarası formatını kontrol ediyoruz.
+        UtilMethods.checkPhoneFormat(dto.phoneNumber());
 
         //Random password oluşturma
         String password = LoginCodeGenerator.generateActivationCode(6);
@@ -65,6 +69,35 @@ public class ManagerService
         emailService.sendManagerInvitationEmail(dto.email(), dto.name(), dto.companyName(), password);
 
         return manager;
+    }
+
+    public Boolean createAccount(ManagerCreateAccountRequestDto dto)
+    {
+        //Telefon numarası formatını kontrol ediyoruz.
+        UtilMethods.checkPhoneFormat(dto.phoneNumber());
+
+        Auth auth = authService.save(new AuthSaveRequestDto(dto.email(), dto.password(), EUserType.MANAGER));
+
+        //Company Olusturma. Şimdilik default "TRY" ile oluşturuyor.
+        Company company = companyService.save(new CompanySaveRequestDto(dto.companyName(), dto.city(), dto.address(), ECurrency.TRY));
+
+        //Herkesin kullanacağı kategorileri oluşturma
+        saveDemoCategoriesForCompany(company);
+
+        //Manager oluşturma
+        Manager manager = managerRepository.save(Manager.builder()
+                .auth(auth)
+                .name(dto.name())
+                .surname(dto.surname())
+                .phoneNumber(dto.phoneNumber())
+                .auth(auth)
+                .company(company)
+                .build());
+
+        //Manager a mail gönderme.
+        emailService.sendManagerInvitationEmail(dto.email(), dto.name(), dto.companyName(), dto.password());
+
+        return true;
     }
 
     private void saveDemoCategoriesForCompany(Company company)
@@ -118,4 +151,6 @@ public class ManagerService
     {
         return managerRepository.findViewById(UUID.fromString(id)).orElseThrow(() -> new ProlyzeException(ErrorType.MANAGER_NOT_FOUND));
     }
+
+
 }
