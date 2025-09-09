@@ -43,6 +43,8 @@ public enum ErrorType
     MANAGER_NOT_FOUND(2012, "Kullanıcı bulunamadı", HttpStatus.BAD_REQUEST),
     CATEGORY_NOT_FOUND(2013, "Kategori bulunamadı.", HttpStatus.BAD_REQUEST),
     CASH_FLOW_NOT_FOUND(2014, "İlgili para akışı bulunamadı", HttpStatus.BAD_REQUEST),
+    PROJECT_NOT_FOUND(2015, "Proje bulunamadı", HttpStatus.BAD_REQUEST),
+    ITEM_NOT_FOUND(2016, "İlgili öğe bulunamadı", HttpStatus.BAD_REQUEST),
 
     // 3000s - Email / Notifications Errors
     MAIL_SEND_FAIL(3000, "E-posta gönderilemedi", HttpStatus.INTERNAL_SERVER_ERROR),
