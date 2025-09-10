@@ -76,7 +76,10 @@ public class CategoryService
 
     public List<CategoryResponseView> findAll(PageRequestDto dto)
     {
-        return  categoryRepository.findAllByNameContainingIgnoreCaseAndStatusIsNotOrderByNameAsc(dto.searchText(),EStatus.DELETED, PageRequest.of(dto.page(), dto.pageSize()));
+        Auth auth = SessionManager.getAuthFromToken();
+        Manager manager = managerService.findByAuth(auth);
+
+        return  categoryRepository.findAllByNameContainingIgnoreCaseAndStatusIsNotAndCompanyOrderByNameAsc(dto.searchText(),EStatus.DELETED, manager.getCompany(), PageRequest.of(dto.page(), dto.pageSize()));
 
     }
 

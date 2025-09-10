@@ -3,7 +3,6 @@ package com.prolyzeai.service;
 
 import com.prolyzeai.dto.request.CashFlowSaveRequestDto;
 import com.prolyzeai.dto.request.CashFlowUpdateRequestDto;
-import com.prolyzeai.dto.request.CategoryUpdateRequestDto;
 import com.prolyzeai.dto.request.PageRequestDto;
 import com.prolyzeai.dto.response.CashFlowGetAllIncomeAndExpenseResponseDto;
 import com.prolyzeai.entities.Auth;
@@ -16,7 +15,6 @@ import com.prolyzeai.exception.ErrorType;
 import com.prolyzeai.exception.ProlyzeException;
 import com.prolyzeai.repository.CashFlowRepository;
 import com.prolyzeai.repository.View.CashFlowResponseView;
-import com.prolyzeai.repository.View.CategoryResponseView;
 import com.prolyzeai.utils.SessionManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -83,7 +81,10 @@ public class CashFlowService
 
     public List<CashFlowResponseView> findAll(PageRequestDto dto)
     {
-        return cashFlowRepository.findAllByDescriptionContainingIgnoreCaseAndStatusIsNotOrderByDateDesc(dto.searchText(),EStatus.DELETED, PageRequest.of(dto.page(), dto.pageSize()));
+        Auth auth = SessionManager.getAuthFromToken();
+        Manager manager = managerService.findByAuth(auth);
+
+        return cashFlowRepository.findAllByDescriptionContainingIgnoreCaseAndStatusIsNotAndCategory_CompanyOrderByDateDesc(dto.searchText(),EStatus.DELETED, manager.getCompany(), PageRequest.of(dto.page(), dto.pageSize()));
     }
 
     public CashFlowResponseView findViewById(String id)

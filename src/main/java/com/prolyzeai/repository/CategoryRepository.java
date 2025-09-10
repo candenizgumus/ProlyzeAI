@@ -2,6 +2,7 @@ package com.prolyzeai.repository;
 
 
 import com.prolyzeai.entities.Category;
+import com.prolyzeai.entities.Company;
 import com.prolyzeai.entities.enums.EStatus;
 import com.prolyzeai.repository.View.CategoryResponseView;
 import org.springframework.data.domain.PageRequest;
@@ -16,6 +17,6 @@ import java.util.UUID;
 public interface CategoryRepository extends JpaRepository<Category, UUID>
 {
 
-    List<CategoryResponseView> findAllByNameContainingIgnoreCaseAndStatusIsNotOrderByNameAsc(String s, EStatus eStatus, PageRequest of);
+    List<CategoryResponseView> findAllByNameContainingIgnoreCaseAndStatusIsNotAndCompanyOrderByNameAsc(String s, EStatus eStatus, Company company, PageRequest of);
     Optional<CategoryResponseView> findViewById(UUID id);
 }

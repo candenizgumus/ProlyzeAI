@@ -46,6 +46,7 @@ public enum ErrorType
     PROJECT_NOT_FOUND(2015, "Proje bulunamadı", HttpStatus.BAD_REQUEST),
     ITEM_NOT_FOUND(2016, "İlgili öğe bulunamadı", HttpStatus.BAD_REQUEST),
     INVALID_DATE(2017, "Hatalı tarih girdiniz", HttpStatus.BAD_REQUEST),
+    PROJECT_LIMIT_EXCEEDED(2017, "Aylık proje oluşturma limiti aşıldı. Şuanki hakkınız : ", HttpStatus.BAD_REQUEST),
 
     // 3000s - Email / Notifications Errors
     MAIL_SEND_FAIL(3000, "E-posta gönderilemedi", HttpStatus.INTERNAL_SERVER_ERROR),
