@@ -39,6 +39,7 @@ public class CompanyService
         company.setCity(dto.city());
         company.setAddress(dto.address());
         company.setSelectedCurrency(dto.currency());
+        categoryRepository.save(company);
         return company;
     }
 
