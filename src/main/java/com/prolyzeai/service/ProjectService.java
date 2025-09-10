@@ -3,24 +3,23 @@ package com.prolyzeai.service;
 
 import com.prolyzeai.dto.request.*;
 import com.prolyzeai.entities.Auth;
+import com.prolyzeai.entities.Company;
 import com.prolyzeai.entities.Manager;
 import com.prolyzeai.entities.Project;
 import com.prolyzeai.entities.enums.EStatus;
 import com.prolyzeai.exception.ErrorType;
 import com.prolyzeai.exception.ProlyzeException;
 import com.prolyzeai.repository.ProjectRepository;
-import com.prolyzeai.repository.View.CategoryResponseView;
 import com.prolyzeai.repository.View.ProjectResponseView;
 import com.prolyzeai.utils.SessionManager;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -44,6 +43,12 @@ public class ProjectService
     {
         Auth auth = SessionManager.getAuthFromToken();
         Manager manager = managerService.findByAuth(auth);
+
+        //Eğer aylık proje oluşturma limiti aşıldıysa hata veriyor
+        if (getCurrentMonthCreatedProjectCount(manager.getCompany()) > manager.getCompany().getMonthlyProjectLimit())
+        {
+            throw new ProlyzeException(ErrorType.PROJECT_LIMIT_EXCEEDED , manager.getCompany().getMonthlyProjectLimit().toString());
+        }
 
         projectRepository.save(Project.builder()
                 .name(dto.name())
@@ -97,8 +102,12 @@ public class ProjectService
 
     public List<ProjectFindAllResponseDto> findAll(PageRequestDto dto)
     {
+        Auth auth = SessionManager.getAuthFromToken();
+        Manager manager = managerService.findByAuth(auth);
+
+
         //TODO BURAYA BİR MANTIK LAZIM DÖNEN VERİ 0.1 DÖNDÜĞÜNDE ASLINDA %90 KARLI fakat 1.5 dönerse %50 zararda. belki veriden 1 çıkarabiliriz.
-        List<ProjectResponseView> projectList = projectRepository.findAllByNameContainingIgnoreCaseAndStatusIsNotOrderByNameAsc(dto.searchText(), EStatus.DELETED, PageRequest.of(dto.page(), dto.pageSize()));
+        List<ProjectResponseView> projectList = projectRepository.findAllByNameContainingIgnoreCaseAndStatusIsNotAndCompanyOrderByNameAsc(dto.searchText(), EStatus.DELETED,manager.getCompany(), PageRequest.of(dto.page(), dto.pageSize()));
         List<ProjectFindAllResponseDto> projectResponseViewList = new ArrayList<>();
         for (ProjectResponseView responseView : projectList)
         {
@@ -127,4 +136,18 @@ public class ProjectService
         return  projectRepository.findViewById(UUID.fromString(id)).orElseThrow(() -> new ProlyzeException(ErrorType.PROJECT_NOT_FOUND));
 
     }
+
+    public Integer getCurrentMonthCreatedProjectCount(Company company) {
+        LocalDate now = LocalDate.now();
+
+        LocalDate start = now.withDayOfMonth(1); // ayın ilk günü
+        LocalDate end = now.withDayOfMonth(now.lengthOfMonth()); // ayın son günü
+
+        LocalDateTime startDateTime = start.atStartOfDay();
+        LocalDateTime endDateTime = end.atTime(23, 59, 59);
+
+        return projectRepository.countAllByStatusIsNotAndCreatedAtBetweenAndCompany(EStatus.DELETED, startDateTime, endDateTime,company);
+    }
+
+
 }
