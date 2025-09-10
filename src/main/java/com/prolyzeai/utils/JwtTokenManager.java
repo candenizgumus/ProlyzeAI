@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.util.Date;
 import java.util.Optional;
 
@@ -24,13 +23,13 @@ public class JwtTokenManager
     String SECRETKEY;
     @Value("${prolyze.issuer}")
     String ISSUER;
-    private final Long EXPIRES_IN_1H = 1000L * 60 * 60 ; // 1 Hour
+    private final Long EXPIRES_IN_12H = 1000L * 60 * 60 * 12 ; // 12 Hour
     private final Long EXPIRES_IN_7D = 1000L * 60 * 60 * 24 * 7; // 7 Days
     private final Long EXPIRES_IN_30S = 1000L * 30; // 30 Seconds
 
     public Optional<String> createAccessToken (String authUuid){
 
-        return createToken(authUuid, EXPIRES_IN_1H);
+        return createToken(authUuid, EXPIRES_IN_12H);
     }
 
 

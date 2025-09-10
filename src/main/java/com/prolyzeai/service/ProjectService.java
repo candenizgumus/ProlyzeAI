@@ -97,6 +97,7 @@ public class ProjectService
 
     public List<ProjectFindAllResponseDto> findAll(PageRequestDto dto)
     {
+        //TODO BURAYA BİR MANTIK LAZIM DÖNEN VERİ 0.1 DÖNDÜĞÜNDE ASLINDA %90 KARLI fakat 1.5 dönerse %50 zararda. belki veriden 1 çıkarabiliriz.
         List<ProjectResponseView> projectList = projectRepository.findAllByNameContainingIgnoreCaseAndStatusIsNotOrderByNameAsc(dto.searchText(), EStatus.DELETED, PageRequest.of(dto.page(), dto.pageSize()));
         List<ProjectFindAllResponseDto> projectResponseViewList = new ArrayList<>();
         for (ProjectResponseView responseView : projectList)
@@ -106,7 +107,7 @@ public class ProjectService
 
             double ratio = 0.0;
             if (responseView.getAgreedPrice() != null && responseView.getAgreedPrice() != 0) {
-                ratio = totalCost / responseView.getAgreedPrice();
+                ratio = 1- (totalCost / responseView.getAgreedPrice());
             }
 
             // Oranı 2 basamaklı hale getir (0.56 gibi)

@@ -1,10 +1,10 @@
 package com.prolyzeai.controller;
 
 
-import com.prolyzeai.dto.request.*;
-import com.prolyzeai.repository.View.CategoryResponseView;
+import com.prolyzeai.dto.request.ItemSaveRequestDto;
+import com.prolyzeai.dto.request.ItemUpdateRequestDto;
+import com.prolyzeai.dto.request.PageRequestDto;
 import com.prolyzeai.repository.View.ItemResponseView;
-import com.prolyzeai.repository.View.ManagerResponseView;
 import com.prolyzeai.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

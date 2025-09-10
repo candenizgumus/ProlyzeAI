@@ -1,17 +1,15 @@
 package com.prolyzeai.controller;
 
 
-import com.prolyzeai.dto.request.*;
-import com.prolyzeai.entities.Manager;
-import com.prolyzeai.repository.View.AdminResponseView;
+import com.prolyzeai.dto.request.ManagerCreateAccountRequestDto;
+import com.prolyzeai.dto.request.ManagerSaveRequestDto;
+import com.prolyzeai.dto.request.ManagerUpdateRequestDto;
 import com.prolyzeai.repository.View.ManagerResponseView;
 import com.prolyzeai.service.ManagerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 import static com.prolyzeai.constants.Endpoints.*;
 
