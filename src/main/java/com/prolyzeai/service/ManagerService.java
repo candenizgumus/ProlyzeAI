@@ -101,6 +101,30 @@ public class ManagerService
         return true;
     }
 
+    public Manager createAccountForDemoData(ManagerCreateAccountRequestDto dto)
+    {
+        //Telefon numarası formatını kontrol ediyoruz.
+        UtilMethods.checkPhoneFormat(dto.phoneNumber());
+
+        Auth auth = authService.save(new AuthSaveRequestDto(dto.email(), dto.password(), EUserType.MANAGER));
+
+        //Company Olusturma. Şimdilik default "TRY" ile oluşturuyor.
+        Company company = companyService.save(new CompanySaveRequestDto(dto.companyName(), dto.city(), dto.address(), ECurrency.TRY));
+
+        //Herkesin kullanacağı kategorileri oluşturma
+        saveDemoCategoriesForCompany(company);
+
+        //Manager oluşturma
+        return managerRepository.save(Manager.builder()
+            .auth(auth)
+            .name(dto.name())
+            .surname(dto.surname())
+            .phoneNumber(dto.phoneNumber())
+            .auth(auth)
+            .company(company)
+            .build());
+    }
+
     private void saveDemoCategoriesForCompany(Company company)
     {
         categoryService.saveForDemoData("İşçilik", company);

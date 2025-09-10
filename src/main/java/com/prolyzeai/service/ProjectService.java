@@ -57,6 +57,18 @@ public class ProjectService
 
     }
 
+    public Project saveForDemoData(ProjectSaveRequestDto dto, Manager manager)
+    {
+        return projectRepository.save(Project.builder()
+                .name(dto.name())
+                .description(dto.description())
+                .company(manager.getCompany())
+                .agreedPrice(dto.agreedPrice())
+                .startDate(dto.startDate())
+                .build());
+
+    }
+
     public Boolean delete(String id)
     {
         Project project = findById(id);

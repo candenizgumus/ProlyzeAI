@@ -44,6 +44,7 @@ public class CashFlowService
                 .date(dto.date())
                 .description(dto.description())
                 .cashFlowType(dto.cashFlowType())
+                .amount(dto.amount())
                 .build());
 
         //Eğer para giriş ise "+" çıkış ise "-" olarak kaydediliyor.

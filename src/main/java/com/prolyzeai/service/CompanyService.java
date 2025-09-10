@@ -25,12 +25,12 @@ public class CompanyService
 
     public Company save(CompanySaveRequestDto dto)
     {
-        return Company.builder()
+        return categoryRepository.save(Company.builder()
                 .name(dto.name())
                 .city(dto.city())
                 .address(dto.address())
                 .selectedCurrency(dto.currency())
-                .build();
+                .build());
     }
     public Company update(CompanyUpdateRequestDto dto)
     {
