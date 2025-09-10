@@ -4,14 +4,13 @@ package com.prolyzeai.service;
 import com.prolyzeai.dto.request.ItemSaveRequestDto;
 import com.prolyzeai.dto.request.ItemUpdateRequestDto;
 import com.prolyzeai.dto.request.PageRequestDto;
-import com.prolyzeai.entities.Category;
-import com.prolyzeai.entities.Item;
-import com.prolyzeai.entities.Project;
+import com.prolyzeai.entities.*;
 import com.prolyzeai.entities.enums.EStatus;
 import com.prolyzeai.exception.ErrorType;
 import com.prolyzeai.exception.ProlyzeException;
 import com.prolyzeai.repository.ItemRepository;
 import com.prolyzeai.repository.View.ItemResponseView;
+import com.prolyzeai.utils.SessionManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -28,8 +27,10 @@ public class ItemService
 {
     private final ItemRepository itemRepository;
     private final CategoryService categoryService;
-    @Lazy @Autowired
+    @Lazy
+    @Autowired
     private ProjectService projectService;
+    private final ManagerService managerService;
 
 
     public Boolean save(ItemSaveRequestDto dto)
@@ -56,7 +57,8 @@ public class ItemService
         return true;
     }
 
-    public Item findById(String id){
+    public Item findById(String id)
+    {
         return itemRepository.findById(UUID.fromString(id)).orElseThrow(() -> new ProlyzeException(ErrorType.ITEM_NOT_FOUND));
     }
 
@@ -74,19 +76,22 @@ public class ItemService
 
     public List<ItemResponseView> findAll(PageRequestDto dto)
     {
-        return  itemRepository.findAllByDescriptionContainingIgnoreCaseAndStatusIsNotOrderByDescriptionAsc(dto.searchText(),EStatus.DELETED, PageRequest.of(dto.page(), dto.pageSize()));
+        Auth auth = SessionManager.getAuthFromToken();
+        Manager manager = managerService.findByAuth(auth);
+
+        return itemRepository.findAllByDescriptionContainingIgnoreCaseAndStatusIsNotAndCategory_CompanyOrderByDescriptionAsc(dto.searchText(), EStatus.DELETED, manager.getCompany(), PageRequest.of(dto.page(), dto.pageSize()));
 
     }
 
     public ItemResponseView findViewById(String id)
     {
-        return  itemRepository.findViewById(UUID.fromString(id));
+        return itemRepository.findViewById(UUID.fromString(id));
 
     }
 
     public Double findTotalItemCostByProjectId(UUID projectId)
     {
-        return  itemRepository.findTotalItemCostByProjectId(projectId);
+        return itemRepository.findTotalItemCostByProjectId(projectId);
 
     }
 }

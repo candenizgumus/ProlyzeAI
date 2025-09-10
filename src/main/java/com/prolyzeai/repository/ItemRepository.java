@@ -1,6 +1,7 @@
 package com.prolyzeai.repository;
 
 
+import com.prolyzeai.entities.Company;
 import com.prolyzeai.entities.Item;
 import com.prolyzeai.entities.enums.EStatus;
 import com.prolyzeai.repository.View.ItemResponseView;
@@ -16,7 +17,7 @@ import java.util.UUID;
 public interface ItemRepository extends JpaRepository<Item, UUID>
 {
 
-    List<ItemResponseView> findAllByDescriptionContainingIgnoreCaseAndStatusIsNotOrderByDescriptionAsc(String s, EStatus eStatus, PageRequest of);
+    List<ItemResponseView> findAllByDescriptionContainingIgnoreCaseAndStatusIsNotAndCategory_CompanyOrderByDescriptionAsc(String s, EStatus eStatus, Company company, PageRequest of);
     ItemResponseView findViewById(UUID id);
     @Query("""
     SELECT COALESCE(SUM(i.totalPrice), 0)

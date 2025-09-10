@@ -85,7 +85,7 @@ public class DemoDataGenerator
 
             // Malzemeler
             for (String itemName : malzemeItems) {
-                double unitPrice = 100 + random.nextDouble() * 5000; // 100 - 5100 arası
+                double unitPrice = 300 + random.nextDouble() * 5000; // 100 - 5100 arası
                 int quantity = 1 + random.nextInt(20); // 1-20 adet
                 itemService.save(new ItemSaveRequestDto(
                         malzeme.getId().toString(),
