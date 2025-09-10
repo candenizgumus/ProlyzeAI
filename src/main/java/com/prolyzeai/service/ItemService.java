@@ -13,6 +13,8 @@ import com.prolyzeai.exception.ProlyzeException;
 import com.prolyzeai.repository.ItemRepository;
 import com.prolyzeai.repository.View.ItemResponseView;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +28,8 @@ public class ItemService
 {
     private final ItemRepository itemRepository;
     private final CategoryService categoryService;
-    private final ProjectService projectService;
+    @Lazy @Autowired
+    private ProjectService projectService;
 
 
     public Boolean save(ItemSaveRequestDto dto)
@@ -78,6 +81,12 @@ public class ItemService
     public ItemResponseView findViewById(String id)
     {
         return  itemRepository.findViewById(UUID.fromString(id));
+
+    }
+
+    public Double findTotalItemCostByProjectId(UUID projectId)
+    {
+        return  itemRepository.findTotalItemCostByProjectId(projectId);
 
     }
 }

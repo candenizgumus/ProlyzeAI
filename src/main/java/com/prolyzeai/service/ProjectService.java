@@ -1,10 +1,7 @@
 package com.prolyzeai.service;
 
 
-import com.prolyzeai.dto.request.ManagerSaveRequestDto;
-import com.prolyzeai.dto.request.PageRequestDto;
-import com.prolyzeai.dto.request.ProjectSaveRequestDto;
-import com.prolyzeai.dto.request.ProjectUpdateRequestDto;
+import com.prolyzeai.dto.request.*;
 import com.prolyzeai.entities.Auth;
 import com.prolyzeai.entities.Manager;
 import com.prolyzeai.entities.Project;
@@ -16,10 +13,15 @@ import com.prolyzeai.repository.View.CategoryResponseView;
 import com.prolyzeai.repository.View.ProjectResponseView;
 import com.prolyzeai.utils.SessionManager;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -30,6 +32,7 @@ public class ProjectService
 {
     private final ProjectRepository projectRepository;
     private final ManagerService managerService;
+    private final ItemService itemService;
 
 
     public Project findById(String id){
@@ -80,9 +83,29 @@ public class ProjectService
         return true;
     }
 
-    public List<ProjectResponseView> findAll(PageRequestDto dto)
+    public List<ProjectFindAllResponseDto> findAll(PageRequestDto dto)
     {
-        return  projectRepository.findAllByNameContainingIgnoreCaseAndStatusIsNotOrderByNameAsc(dto.searchText(),EStatus.DELETED, PageRequest.of(dto.page(), dto.pageSize()));
+        List<ProjectResponseView> projectList = projectRepository.findAllByNameContainingIgnoreCaseAndStatusIsNotOrderByNameAsc(dto.searchText(), EStatus.DELETED, PageRequest.of(dto.page(), dto.pageSize()));
+        List<ProjectFindAllResponseDto> projectResponseViewList = new ArrayList<>();
+        for (ProjectResponseView responseView : projectList)
+        {
+            // Projeye ait karlılık oranı "0.63" gibi dönmeli
+            Double totalCost =  itemService.findTotalItemCostByProjectId(responseView.getId());
+
+            double ratio = 0.0;
+            if (responseView.getAgreedPrice() != null && responseView.getAgreedPrice() != 0) {
+                ratio = totalCost / responseView.getAgreedPrice();
+            }
+
+            // Oranı 2 basamaklı hale getir (0.56 gibi)
+            double profitability = BigDecimal.valueOf(ratio)
+                    .setScale(2, RoundingMode.HALF_UP)
+                    .doubleValue();
+
+
+            projectResponseViewList.add(new ProjectFindAllResponseDto(responseView.getId().toString(),responseView.getName(),responseView.getDescription(),responseView.getAgreedPrice(),responseView.getStartDate(),responseView.getEndDate(),responseView.getIsCompleted(),profitability));
+        }
+        return projectResponseViewList ;
 
     }
 
