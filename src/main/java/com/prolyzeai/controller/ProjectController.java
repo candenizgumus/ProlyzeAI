@@ -48,7 +48,7 @@ public class ProjectController
     }
 
     @PostMapping(FIND_ALL)
-    @PreAuthorize("hasAnyAuthority('MANAGER', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('MANAGER')")
     public ResponseEntity<List<ProjectFindAllResponseDto>> findAll(@RequestBody PageRequestDto dto){
 
         return ResponseEntity.ok(projectService.findAll(dto));
