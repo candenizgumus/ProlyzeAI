@@ -87,7 +87,7 @@ public class ProjectService
         Project project = findById(dto.id());
 
         //Eğer tarih bitiş tarihten önce ise hata ver
-        if (dto.endDate() != null && dto.startDate().isBefore(dto.endDate()))
+        if (dto.endDate() != null && dto.endDate().isBefore(dto.startDate()))
         {
             throw new ProlyzeException(ErrorType.INVALID_DATE);
         }
