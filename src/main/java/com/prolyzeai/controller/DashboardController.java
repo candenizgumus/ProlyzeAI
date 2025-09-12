@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 import static com.prolyzeai.constants.Endpoints.*;
 
 
@@ -28,6 +30,21 @@ public class DashboardController
     public ResponseEntity<DashboardGetDashboardDataRequestDto> getDashboardData(){
 
         return ResponseEntity.ok(dashboardService.getDashboardData());
+    }
+
+    /**
+     * Dönen sonuç aşağıdaki gibi gözükecek.
+     * {
+     *     "Yakıt": 79377.0,
+     *     "Malzeme": 5704748.0
+     * }
+     * @return
+     */
+    @GetMapping(GET_CATEGORY_EXPENSES_FOR_CURRENT_YEAR)
+    @PreAuthorize("hasAnyAuthority('MANAGER')")
+    public ResponseEntity<Map<String, Double>> getCategoryExpensesForCurrentYear(){
+
+        return ResponseEntity.ok(dashboardService.getCategoryExpensesForCurrentYear());
     }
 
 

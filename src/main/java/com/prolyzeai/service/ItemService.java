@@ -17,7 +17,11 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 
@@ -98,4 +102,20 @@ public class ItemService
     public double findTotalItemCostByProjectIds(List<UUID> projectIds, EStatus eStatus , Company company){
         return itemRepository.findTotalItemCostByProjectIds(projectIds, eStatus, company);
     }
+
+    public Map<String, Double> getCategoryExpensesForCurrentYear(EStatus eStatus, Company company) {
+        LocalDateTime startOfYear = LocalDate.now().withDayOfYear(1).atStartOfDay();
+        LocalDateTime endOfYear = LocalDate.now().withMonth(12).withDayOfMonth(31).atTime(23, 59, 59);
+
+        List<Object[]> results = itemRepository.findCategoryExpensesForYear(eStatus, company, startOfYear, endOfYear);
+
+        Map<String, Double> categoryExpenses = new HashMap<>();
+        for (Object[] row : results) {
+            String categoryName = (String) row[0];
+            Double total = (Double) row[1];
+            categoryExpenses.put(categoryName, total);
+        }
+        return categoryExpenses;
+    }
+
 }

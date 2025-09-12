@@ -8,8 +8,10 @@ import com.prolyzeai.repository.View.ItemResponseView;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,6 +41,22 @@ public interface ItemRepository extends JpaRepository<Item, UUID>
             EStatus eStatus,
             Company company
     );
+
+    @Query("""
+    SELECT i.category.name, COALESCE(SUM(i.totalPrice), 0)
+    FROM Item i
+    WHERE i.status <> :eStatus
+      AND i.category.company = :company
+      AND i.createdAt BETWEEN :startDate AND :endDate
+    GROUP BY i.category.name
+""")
+    List<Object[]> findCategoryExpensesForYear(
+            @Param("eStatus") EStatus eStatus,
+            @Param("company") Company company,
+            @Param("startDate") LocalDateTime startDate,
+            @Param("endDate") LocalDateTime endDate
+    );
+
 
 
 }

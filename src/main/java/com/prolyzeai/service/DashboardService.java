@@ -15,6 +15,7 @@ import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 
@@ -75,4 +76,10 @@ public class DashboardService
         return projectService.sumAgreedPriceForYear(eStatus, company, startOfYear, endOfYear);
     }
 
+    public Map<String, Double> getCategoryExpensesForCurrentYear()
+    {
+        Auth auth = SessionManager.getAuthFromToken();
+        Manager manager = managerService.findByAuth(auth);
+       return itemService.getCategoryExpensesForCurrentYear(EStatus.DELETED, manager.getCompany());
+    }
 }
