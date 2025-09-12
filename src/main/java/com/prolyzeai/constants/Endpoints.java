@@ -42,6 +42,7 @@ public class Endpoints
     public static final String DELETE = "/delete";
     public static final String UPDATE = "/update";
     public static final String FIND_ALL = "/find-all";
+    public static final String GET_ALL_ITEMS_OF_PROJECT = "/get-all-items-of-project";
     public static final String SAVE_BY_MANAGER = "/save-by-manager";
     public static final String CREATE_ACCOUNT = "/create-account";
     public static final String SAVE_BY_PATIENT = "/save-by-patient";

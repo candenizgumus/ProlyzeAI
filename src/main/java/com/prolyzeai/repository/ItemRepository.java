@@ -20,6 +20,7 @@ public interface ItemRepository extends JpaRepository<Item, UUID>
 {
 
     List<ItemResponseView> findAllByDescriptionContainingIgnoreCaseAndStatusIsNotAndCategory_CompanyOrderByDescriptionAsc(String s, EStatus eStatus, Company company, PageRequest of);
+    List<ItemResponseView> findAllByDescriptionContainingIgnoreCaseAndStatusIsNotAndProject_IdOrderByDescriptionAsc(String s, EStatus eStatus, UUID id, PageRequest of);
     ItemResponseView findViewById(UUID id);
     @Query("""
     SELECT COALESCE(SUM(i.totalPrice), 0)

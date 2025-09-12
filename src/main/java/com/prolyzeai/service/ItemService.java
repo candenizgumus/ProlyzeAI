@@ -1,6 +1,7 @@
 package com.prolyzeai.service;
 
 
+import com.prolyzeai.dto.request.ItemGetAllItemsOfProjectRequestDto;
 import com.prolyzeai.dto.request.ItemSaveRequestDto;
 import com.prolyzeai.dto.request.ItemUpdateRequestDto;
 import com.prolyzeai.dto.request.PageRequestDto;
@@ -118,4 +119,10 @@ public class ItemService
         return categoryExpenses;
     }
 
+    public List<ItemResponseView> getAllItemsOfProject(ItemGetAllItemsOfProjectRequestDto dto)
+    {
+
+        return itemRepository.findAllByDescriptionContainingIgnoreCaseAndStatusIsNotAndProject_IdOrderByDescriptionAsc(dto.searchText(), EStatus.DELETED, UUID.fromString(dto.projectId()), PageRequest.of(dto.page(), dto.pageSize()));
+
+    }
 }

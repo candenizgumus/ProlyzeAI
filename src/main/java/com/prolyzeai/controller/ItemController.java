@@ -1,6 +1,7 @@
 package com.prolyzeai.controller;
 
 
+import com.prolyzeai.dto.request.ItemGetAllItemsOfProjectRequestDto;
 import com.prolyzeai.dto.request.ItemSaveRequestDto;
 import com.prolyzeai.dto.request.ItemUpdateRequestDto;
 import com.prolyzeai.dto.request.PageRequestDto;
@@ -52,6 +53,13 @@ public class ItemController
     public ResponseEntity<List<ItemResponseView>> findAll(@RequestBody PageRequestDto dto){
 
         return ResponseEntity.ok(itemService.findAll(dto));
+    }
+
+    @PostMapping(GET_ALL_ITEMS_OF_PROJECT)
+    @PreAuthorize("hasAnyAuthority('MANAGER')")
+    public ResponseEntity<List<ItemResponseView>> getAllItemsOfProject(@RequestBody ItemGetAllItemsOfProjectRequestDto dto){
+
+        return ResponseEntity.ok(itemService.getAllItemsOfProject(dto));
     }
 
     @GetMapping(FIND_BY_ID)
