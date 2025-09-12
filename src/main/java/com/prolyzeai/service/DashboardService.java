@@ -2,6 +2,7 @@ package com.prolyzeai.service;
 
 
 import com.prolyzeai.dto.request.DashboardGetDashboardDataRequestDto;
+import com.prolyzeai.dto.response.DashboardGetCategoryExpensesForCurrentYearResponseDto;
 import com.prolyzeai.entities.Auth;
 import com.prolyzeai.entities.Company;
 import com.prolyzeai.entities.Manager;
@@ -76,10 +77,11 @@ public class DashboardService
         return projectService.sumAgreedPriceForYear(eStatus, company, startOfYear, endOfYear);
     }
 
-    public Map<String, Double> getCategoryExpensesForCurrentYear()
+    public DashboardGetCategoryExpensesForCurrentYearResponseDto getCategoryExpensesForCurrentYear()
     {
         Auth auth = SessionManager.getAuthFromToken();
         Manager manager = managerService.findByAuth(auth);
-       return itemService.getCategoryExpensesForCurrentYear(EStatus.DELETED, manager.getCompany());
+        Map<String, Double> categoryExpensesForCurrentYear = itemService.getCategoryExpensesForCurrentYear(EStatus.DELETED, manager.getCompany());
+        return  new DashboardGetCategoryExpensesForCurrentYearResponseDto(categoryExpensesForCurrentYear);
     }
 }

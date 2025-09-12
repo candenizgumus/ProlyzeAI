@@ -2,6 +2,7 @@ package com.prolyzeai.controller;
 
 
 import com.prolyzeai.dto.request.DashboardGetDashboardDataRequestDto;
+import com.prolyzeai.dto.response.DashboardGetCategoryExpensesForCurrentYearResponseDto;
 import com.prolyzeai.service.DashboardService;
 import com.prolyzeai.service.ManagerService;
 import lombok.RequiredArgsConstructor;
@@ -42,7 +43,7 @@ public class DashboardController
      */
     @GetMapping(GET_CATEGORY_EXPENSES_FOR_CURRENT_YEAR)
     @PreAuthorize("hasAnyAuthority('MANAGER')")
-    public ResponseEntity<Map<String, Double>> getCategoryExpensesForCurrentYear(){
+    public ResponseEntity<DashboardGetCategoryExpensesForCurrentYearResponseDto> getCategoryExpensesForCurrentYear(){
 
         return ResponseEntity.ok(dashboardService.getCategoryExpensesForCurrentYear());
     }
