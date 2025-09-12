@@ -84,12 +84,15 @@ public class ProjectService
 
     public Boolean update(ProjectUpdateRequestDto dto)
     {
+        Project project = findById(dto.id());
+
         //Eğer tarih bitiş tarihten önce ise hata ver
-        if (dto.startDate().isBefore(dto.endDate()))
+        if (dto.endDate() != null && dto.startDate().isBefore(dto.endDate()))
         {
             throw new ProlyzeException(ErrorType.INVALID_DATE);
         }
-        Project project = findById(dto.id());
+
+
         project.setName(dto.name());
         project.setDescription(dto.description());
         project.setAgreedPrice(dto.agreedPrice());

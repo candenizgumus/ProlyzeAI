@@ -7,6 +7,8 @@ import com.prolyzeai.entities.enums.EStatus;
 import com.prolyzeai.repository.View.ProjectResponseView;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -18,7 +20,21 @@ import java.util.UUID;
 public interface ProjectRepository extends JpaRepository<Project, UUID>
 {
 
-    List<ProjectResponseView> findAllByNameContainingIgnoreCaseAndStatusIsNotAndCompanyOrderByNameAsc(String s, EStatus eStatus, Company company, PageRequest of);
+    @Query("""
+    SELECT p 
+    FROM Project p 
+    WHERE LOWER(p.name) LIKE LOWER(CONCAT('%', :s, '%'))
+      AND p.status <> :eStatus
+      AND p.company = :company
+    ORDER BY p.isCompleted ASC, p.name ASC
+""")
+    List<ProjectResponseView> findAllByNameContainingIgnoreCaseAndStatusIsNotAndCompanyOrderByNameAsc(
+            @Param("s") String s,
+            @Param("eStatus") EStatus eStatus,
+            @Param("company") Company company,
+            PageRequest pageable
+    );
+
     Optional<ProjectResponseView> findViewById(UUID id);
 
     Integer countAllByStatusIsNotAndCreatedAtBetweenAndCompany(EStatus eStatus, LocalDateTime startDate, LocalDateTime endDate, Company company);
