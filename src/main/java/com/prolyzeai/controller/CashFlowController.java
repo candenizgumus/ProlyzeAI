@@ -61,7 +61,7 @@ public class CashFlowController
         return ResponseEntity.ok(cashFlowService.findViewById(id));
     }
 
-    @PostMapping(GET_ALL_INCOME_AND_EXPENSE)
+    @GetMapping(GET_ALL_INCOME_AND_EXPENSE)
     @PreAuthorize("hasAnyAuthority('MANAGER')")
     public ResponseEntity<CashFlowGetAllIncomeAndExpenseResponseDto> getAllIncomeAndExpense(){
 
