@@ -39,7 +39,7 @@ public class ProjectService
     }
 
 
-    public Boolean save(ProjectSaveRequestDto dto)
+    public Project save(ProjectSaveRequestDto dto)
     {
         Auth auth = SessionManager.getAuthFromToken();
         Manager manager = managerService.findByAuth(auth);
@@ -50,15 +50,14 @@ public class ProjectService
             throw new ProlyzeException(ErrorType.PROJECT_LIMIT_EXCEEDED , manager.getCompany().getMonthlyProjectLimit().toString());
         }
 
-        projectRepository.save(Project.builder()
+        return projectRepository.save(Project.builder()
                 .name(dto.name())
                 .description(dto.description())
                 .company(manager.getCompany())
                 .agreedPrice(dto.agreedPrice())
                 .startDate(dto.startDate())
+                .endDate(dto.endDate())
                 .build());
-
-        return true;
 
     }
 
