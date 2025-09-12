@@ -39,4 +39,34 @@ public interface ProjectRepository extends JpaRepository<Project, UUID>
 
     Integer countAllByStatusIsNotAndCreatedAtBetweenAndCompany(EStatus eStatus, LocalDateTime startDate, LocalDateTime endDate, Company company);
 
+    @Query("""
+    SELECT COALESCE(SUM(p.agreedPrice), 0)
+    FROM Project p
+    WHERE p.status <> :eStatus
+      AND p.company = :company
+      AND p.createdAt BETWEEN :startDate AND :endDate
+""")
+    Double sumAgreedPriceForYear(
+            @Param("eStatus") EStatus eStatus,
+            @Param("company") Company company,
+            @Param("startDate") LocalDateTime startDate,
+            @Param("endDate") LocalDateTime endDate
+    );
+
+
+    @Query("""
+    SELECT p.id
+    FROM Project p
+    WHERE p.status <> :eStatus
+      AND p.createdAt BETWEEN :startDate AND :endDate
+      AND p.company = :company
+""")
+    List<UUID> findAllIdsByStatusIsNotAndCreatedAtBetweenAndCompany(
+            EStatus eStatus,
+            LocalDateTime startDate,
+            LocalDateTime endDate,
+            Company company
+    );
+
+
 }

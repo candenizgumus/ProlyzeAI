@@ -94,4 +94,8 @@ public class ItemService
         return itemRepository.findTotalItemCostByProjectId(projectId);
 
     }
+
+    public double findTotalItemCostByProjectIds(List<UUID> projectIds, EStatus eStatus , Company company){
+        return itemRepository.findTotalItemCostByProjectIds(projectIds, eStatus, company);
+    }
 }

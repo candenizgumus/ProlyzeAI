@@ -26,4 +26,19 @@ public interface ItemRepository extends JpaRepository<Item, UUID>
 """)
     Double findTotalItemCostByProjectId(UUID projectId);
 
+
+    @Query("""
+    SELECT COALESCE(SUM(i.totalPrice), 0)
+    FROM Item i
+    WHERE i.project.id IN :projectIds
+      AND i.status <> :eStatus
+      AND i.category.company = :company
+""")
+    Double findTotalItemCostByProjectIds(
+            List<UUID> projectIds,
+            EStatus eStatus,
+            Company company
+    );
+
+
 }

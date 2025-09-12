@@ -155,4 +155,12 @@ public class ProjectService
     }
 
 
+    public Double sumAgreedPriceForYear(EStatus eStatus, Company company, LocalDateTime startOfYear, LocalDateTime endOfYear)
+    {
+        return projectRepository.sumAgreedPriceForYear(eStatus, company, startOfYear, endOfYear);
+    }
+
+    public List<UUID> findAllIdsByStatusIsNotAndCreatedAtBetweenAndCompany(EStatus eStatus, Company company, LocalDateTime startOfYear, LocalDateTime endOfYear){
+        return projectRepository.findAllIdsByStatusIsNotAndCreatedAtBetweenAndCompany(eStatus, startOfYear, endOfYear , company);
+    }
 }
