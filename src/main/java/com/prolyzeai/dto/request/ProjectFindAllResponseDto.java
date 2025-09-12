@@ -9,6 +9,7 @@ public record ProjectFindAllResponseDto(String id,
                                         Double remainingBudget,
                                         LocalDate startDate,
                                         LocalDate endDate,
+                                        LocalDate plannedEndDate,
                                         Boolean isCompleted,
                                         Double profitability)
 {

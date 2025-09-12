@@ -52,15 +52,15 @@ public class DemoDataGenerator
                         "ProlyzeAI", "05305424321", "Istanbul", "Cumhuriyet Cad. No:1"));
 
         Project project1 = projectService.saveForDemoData(
-                new ProjectSaveRequestDto("Forum Istanbul", "Dış cephe işleri", 1_000_000.0, LocalDate.now().minusMonths(2), LocalDate.now().plusMonths(2)), manager);
+                new ProjectSaveRequestDto("Forum Istanbul", "Dış cephe işleri", 1_000_000.0, LocalDate.now().minusMonths(2), LocalDate.now().plusMonths(2), LocalDate.now().plusMonths(1)), manager);
         Project project2 = projectService.saveForDemoData(
-                new ProjectSaveRequestDto("Zorlu Center", "İç dekorasyon ve ince işler", 2_500_000.0, LocalDate.now().minusMonths(5), LocalDate.now().plusMonths(5)), manager);
+                new ProjectSaveRequestDto("Zorlu Center", "İç dekorasyon ve ince işler", 2_500_000.0, LocalDate.now().minusMonths(5), LocalDate.now().plusMonths(5), LocalDate.now().plusMonths(6)), manager);
         Project project3 = projectService.saveForDemoData(
-                new ProjectSaveRequestDto("Ankara AVM", "Altyapı ve temel güçlendirme", 3_200_000.0, LocalDate.now().plusMonths(8), LocalDate.now().plusMonths(15)), manager);
+                new ProjectSaveRequestDto("Ankara AVM", "Altyapı ve temel güçlendirme", 3_200_000.0, LocalDate.now().plusMonths(8), LocalDate.now().plusMonths(15), LocalDate.now().plusMonths(12)), manager);
         Project project4 = projectService.saveForDemoData(
-                new ProjectSaveRequestDto("Emaar Square", "Mekanik tesisat ve havalandırma işleri", 1_800_000.0, LocalDate.now().minusMonths(3), LocalDate.now().plusMonths(4)), manager);
+                new ProjectSaveRequestDto("Emaar Square", "Mekanik tesisat ve havalandırma işleri", 1_800_000.0, LocalDate.now().minusMonths(3), LocalDate.now().plusMonths(4), LocalDate.now().plusMonths(4)), manager);
         Project project5 = projectService.saveForDemoData(
-                new ProjectSaveRequestDto("İzmir Marina", "Peyzaj ve çevre düzenleme", 950_000.0, LocalDate.now().plusMonths(1), LocalDate.now().plusMonths(6)), manager);
+                new ProjectSaveRequestDto("İzmir Marina", "Peyzaj ve çevre düzenleme", 950_000.0, LocalDate.now().plusMonths(1), LocalDate.now().plusMonths(6), LocalDate.now().plusMonths(7)), manager);
 
         Category malzeme = categoryService.saveForDemoData("Malzeme", manager.getCompany());
         Category yakit = categoryService.saveForDemoData("Yakıt", manager.getCompany());

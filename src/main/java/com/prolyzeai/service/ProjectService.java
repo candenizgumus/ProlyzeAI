@@ -57,6 +57,7 @@ public class ProjectService
                 .agreedPrice(dto.agreedPrice())
                 .startDate(dto.startDate())
                 .endDate(dto.endDate())
+                .plannedEndDate(dto.plannedEndDate())
                 .build());
 
     }
@@ -98,6 +99,7 @@ public class ProjectService
         project.setStartDate(dto.startDate());
         project.setEndDate(dto.endDate());
         project.setIsCompleted(dto.isCompleted());
+        project.setPlannedEndDate(dto.plannedEndDate());
         projectRepository.save(project);
         return true;
     }
@@ -130,7 +132,7 @@ public class ProjectService
             double remainingBudget = responseView.getAgreedPrice() - totalCost;
 
 
-            projectResponseViewList.add(new ProjectFindAllResponseDto(responseView.getId().toString(),responseView.getName(),responseView.getDescription(),responseView.getAgreedPrice(), remainingBudget , responseView.getStartDate(),responseView.getEndDate(),responseView.getIsCompleted(),profitability));
+            projectResponseViewList.add(new ProjectFindAllResponseDto(responseView.getId().toString(),responseView.getName(),responseView.getDescription(),responseView.getAgreedPrice(), remainingBudget , responseView.getStartDate(),responseView.getEndDate(),responseView.getPlannedEndDate(), responseView.getIsCompleted(),profitability));
         }
         return projectResponseViewList ;
 

@@ -14,5 +14,6 @@ public interface ProjectResponseView
     Double getAgreedPrice();
     LocalDate getStartDate();
     LocalDate getEndDate();
+    LocalDate getPlannedEndDate();
     Boolean getIsCompleted();
 }

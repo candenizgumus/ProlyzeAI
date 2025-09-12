@@ -25,6 +25,7 @@ public class Project extends BaseEntity
     Double agreedPrice;
     LocalDate startDate;
     LocalDate endDate;
+    LocalDate plannedEndDate;
     @Builder.Default
     Boolean isCompleted = false;
     @Builder.Default
