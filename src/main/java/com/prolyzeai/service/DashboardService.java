@@ -58,11 +58,12 @@ public class DashboardService
 
         Double yearlyAverageProfitRatio = 1 -(totalYearlyCostOfProjects / totalYearlyAgreedPriceForCurrentYear) ;
 
+        // Oranı 2 basamaklı hale getir (0.56 gibi)
         Double roundedYearlyAverageProfitRatio = BigDecimal.valueOf(yearlyAverageProfitRatio)
                 .setScale(2, RoundingMode.HALF_UP)
                 .doubleValue();
 
-        return new DashboardGetDashboardDataRequestDto(totalYearlyCostOfProjects, totalYearlyAgreedPriceForCurrentYear,roundedYearlyAverageProfitRatio);
+        return new DashboardGetDashboardDataRequestDto(totalYearlyCostOfProjects, totalYearlyAgreedPriceForCurrentYear,roundedYearlyAverageProfitRatio, projectIds.size());
     }
 
 
