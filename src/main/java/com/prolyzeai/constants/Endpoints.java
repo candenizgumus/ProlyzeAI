@@ -56,6 +56,7 @@ public class Endpoints
     public static final String POPULATE_REVIEW_DATES = "/populate-review-dates";
 
     public static final String FIND_BY_ID = "/find-by-id";
+    public static final String SET_MONTHLY_PROJECT_LIMIT = "/set-monthly-project-limit";
     public static final String GET_ALL_INCOME_AND_EXPENSE = "/get-all-income-and-expense";
     public static final String FIND_BY_TOKEN = "/find-by-token";
     public static final String SWITCH_WHITELABEL = "/switch-whitelabel";

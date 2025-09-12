@@ -2,6 +2,7 @@ package com.prolyzeai.service;
 
 
 import com.prolyzeai.dto.request.CompanySaveRequestDto;
+import com.prolyzeai.dto.request.CompanySetMonthlyProjectLimitRequestDto;
 import com.prolyzeai.dto.request.CompanyUpdateRequestDto;
 import com.prolyzeai.entities.Company;
 import com.prolyzeai.entities.enums.EStatus;
@@ -55,5 +56,13 @@ public class CompanyService
     {
         return categoryRepository.findViewById(UUID.fromString(id)).orElseThrow(() -> new ProlyzeException(ErrorType.COMPANY_NOT_FOUND));
 
+    }
+
+    public Boolean setMonthlyProjectLimit(CompanySetMonthlyProjectLimitRequestDto dto)
+    {
+        Company company = categoryRepository.findById(UUID.fromString(dto.companyId())).orElseThrow(() -> new ProlyzeException(ErrorType.COMPANY_NOT_FOUND));
+        company.setMonthlyProjectLimit(dto.monthlyProjectLimit());
+        categoryRepository.save(company);
+        return true;
     }
 }
