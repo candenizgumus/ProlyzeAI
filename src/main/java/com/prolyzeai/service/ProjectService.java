@@ -127,8 +127,11 @@ public class ProjectService
                     .setScale(2, RoundingMode.HALF_UP)
                     .doubleValue();
 
+            //Kalan bütçeyi hesaplama
+            double remainingBudget = responseView.getAgreedPrice() - totalCost;
 
-            projectResponseViewList.add(new ProjectFindAllResponseDto(responseView.getId().toString(),responseView.getName(),responseView.getDescription(),responseView.getAgreedPrice(),responseView.getStartDate(),responseView.getEndDate(),responseView.getIsCompleted(),profitability));
+
+            projectResponseViewList.add(new ProjectFindAllResponseDto(responseView.getId().toString(),responseView.getName(),responseView.getDescription(),responseView.getAgreedPrice(), remainingBudget , responseView.getStartDate(),responseView.getEndDate(),responseView.getIsCompleted(),profitability));
         }
         return projectResponseViewList ;
 

@@ -91,7 +91,7 @@ public class DemoDataGenerator
                         malzeme.getId().toString(),
                         project.getId().toString(),
                         itemName,
-                        unitPrice,
+                        (double) Math.round(unitPrice),
                         quantity
                 ));
             }
@@ -104,7 +104,7 @@ public class DemoDataGenerator
                         yakit.getId().toString(),
                         project.getId().toString(),
                         itemName,
-                        unitPrice,
+                        (double) Math.round(unitPrice),
                         quantity
                 ));
             }
