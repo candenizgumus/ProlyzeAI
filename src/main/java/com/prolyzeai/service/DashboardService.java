@@ -10,6 +10,8 @@ import com.prolyzeai.utils.SessionManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -54,7 +56,13 @@ public class DashboardService
 
         Double totalYearlyCostOfProjects = itemService.findTotalItemCostByProjectIds(projectIds, EStatus.DELETED, manager.getCompany());
 
-        return new DashboardGetDashboardDataRequestDto(totalYearlyCostOfProjects, totalYearlyAgreedPriceForCurrentYear);
+        Double yearlyAverageProfitRatio = 1 -(totalYearlyCostOfProjects / totalYearlyAgreedPriceForCurrentYear) ;
+
+        Double roundedYearlyAverageProfitRatio = BigDecimal.valueOf(yearlyAverageProfitRatio)
+                .setScale(2, RoundingMode.HALF_UP)
+                .doubleValue();
+
+        return new DashboardGetDashboardDataRequestDto(totalYearlyCostOfProjects, totalYearlyAgreedPriceForCurrentYear,roundedYearlyAverageProfitRatio);
     }
 
 
