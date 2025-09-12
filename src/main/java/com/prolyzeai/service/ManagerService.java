@@ -134,6 +134,8 @@ public class ManagerService
         categoryService.saveForDemoData("Cari", company);
         categoryService.saveForDemoData("Personel", company);
         categoryService.saveForDemoData("Bakım", company);
+        categoryService.saveForDemoData("Hammadde", company);
+        categoryService.saveForDemoData("Vergi", company);
     }
 
     public Boolean delete(String id){
