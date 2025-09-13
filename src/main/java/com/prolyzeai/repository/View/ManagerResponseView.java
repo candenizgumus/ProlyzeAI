@@ -8,6 +8,8 @@ import java.util.UUID;
 public interface ManagerResponseView
 {
     UUID getId();
+    @Value("#{target.company.id}")
+    String getCompanyId();
     String getName();
     String getSurname();
     String getPhoneNumber();
