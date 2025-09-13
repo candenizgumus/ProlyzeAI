@@ -11,6 +11,8 @@ public interface ManagerResponseView
     String getName();
     String getSurname();
     String getPhoneNumber();
+    @Value("#{target.company.selectedCurrency}")
+    String getSelectedCurrency();
     @Value("#{target.auth.email}")
     String getEmail();
 }

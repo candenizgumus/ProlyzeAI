@@ -59,6 +59,10 @@ public class ManagerController
         return ResponseEntity.ok(managerService.findViewById(id));
     }
 
+    @GetMapping(FIND_BY_TOKEN)
+    public ResponseEntity<ManagerResponseView> findByToken(){
+        return ResponseEntity.ok(managerService.findByToken());
+    }
 
 
 }

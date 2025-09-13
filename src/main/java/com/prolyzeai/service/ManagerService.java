@@ -16,6 +16,7 @@ import com.prolyzeai.repository.View.AdminResponseView;
 import com.prolyzeai.repository.View.ManagerResponseView;
 import com.prolyzeai.utils.EmailService;
 import com.prolyzeai.utils.LoginCodeGenerator;
+import com.prolyzeai.utils.SessionManager;
 import com.prolyzeai.utils.UtilMethods;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -177,6 +178,11 @@ public class ManagerService
     public ManagerResponseView findViewById(String id)
     {
         return managerRepository.findViewById(UUID.fromString(id)).orElseThrow(() -> new ProlyzeException(ErrorType.MANAGER_NOT_FOUND));
+    }
+
+    public ManagerResponseView findByToken() {
+        Auth clinicManager = SessionManager.getAuthFromToken();
+        return managerRepository.findViewByAuth(clinicManager).orElseThrow(() -> new ProlyzeException(ErrorType.MANAGER_NOT_FOUND));
     }
 
 

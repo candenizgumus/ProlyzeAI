@@ -16,4 +16,6 @@ public interface ManagerRepository extends JpaRepository<Manager, UUID>
 
     Optional<Manager> findByAuth(Auth auth);
     Optional<ManagerResponseView> findViewById(UUID id);
+
+    Optional<ManagerResponseView> findViewByAuth(Auth clinicManager);
 }
