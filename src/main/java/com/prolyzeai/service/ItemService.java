@@ -108,7 +108,10 @@ public class ItemService
         LocalDateTime startOfYear = LocalDate.now().withDayOfYear(1).atStartOfDay();
         LocalDateTime endOfYear = LocalDate.now().withMonth(12).withDayOfMonth(31).atTime(23, 59, 59);
 
-        List<Object[]> results = itemRepository.findCategoryExpensesForYear(eStatus, company, startOfYear, endOfYear);
+        List<Object[]> results = itemRepository.findTopCategoryExpensesForYear(
+                eStatus, company, startOfYear, endOfYear, true, PageRequest.of(0, 5)
+        );
+
 
         Map<String, Double> categoryExpenses = new HashMap<>();
         for (Object[] row : results) {

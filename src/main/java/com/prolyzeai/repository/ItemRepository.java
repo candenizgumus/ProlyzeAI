@@ -49,14 +49,19 @@ public interface ItemRepository extends JpaRepository<Item, UUID>
     WHERE i.status <> :eStatus
       AND i.category.company = :company
       AND i.createdAt BETWEEN :startDate AND :endDate
+      AND i.project.isCompleted = :isCompleted
     GROUP BY i.category.name
+    ORDER BY SUM(i.totalPrice) DESC
 """)
-    List<Object[]> findCategoryExpensesForYear(
-            @Param("eStatus") EStatus eStatus,
-            @Param("company") Company company,
-            @Param("startDate") LocalDateTime startDate,
-            @Param("endDate") LocalDateTime endDate
+    List<Object[]> findTopCategoryExpensesForYear(
+            EStatus eStatus,
+            Company company,
+            LocalDateTime startDate,
+            LocalDateTime endDate,
+            Boolean isCompleted,
+            PageRequest pageRequest
     );
+
 
 
 
